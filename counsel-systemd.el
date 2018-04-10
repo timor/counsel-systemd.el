@@ -14,6 +14,7 @@
 (require 'counsel)
 (require 'dbus)
 
+;;;###autoload
 (defun counsel-journalctl (&optional user-mode)
   "Manage systemd units"
   (interactive "P")
