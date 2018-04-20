@@ -45,11 +45,12 @@
                         (let* ((buffer-name (format "*journalctl %s*" x))
                                (buffer (get-buffer buffer-name)))
                           (if buffer
-                              (switch-to-buffer buffer)
+                              (pop-to-buffer buffer)
                             (let ((args `("--no-tail" "-f" "-b" "-u" ,x)))
                               (apply #'start-process (concat "journalctl-" x) (setq buffer (generate-new-buffer buffer-name)) "journalctl" (if user-mode (cons "--user" args) args))
                              (with-current-buffer buffer
                                (view-mode))
-                             (switch-to-buffer buffer)))))
+                             (pop-to-buffer buffer)))))
+
               :sort t
               :require-match t)))
