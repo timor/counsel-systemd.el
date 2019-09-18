@@ -3,7 +3,7 @@
 ;; unlicensed
 
 ;; Author: timor <timor.dd@googlemail.com>
-;; Version: 0.1.1
+;; Version: 0.1.2
 ;; Package-Requires: (counsel dbus)
 ;; URL: http://github.com/timor/counsel-systemd.el
 ;; Keywords: convenience
