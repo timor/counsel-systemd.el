@@ -46,7 +46,7 @@
                                (buffer (get-buffer buffer-name)))
                           (if buffer
                               (pop-to-buffer buffer)
-                            (let ((args `("--no-tail" "-f" "-b" "-u" ,x)))
+                            (let ((args `("--lines=2000" "-f" "-b" "-u" ,x)))
                               (apply #'start-process (concat "journalctl-" x) (setq buffer (generate-new-buffer buffer-name)) "journalctl" (if user-mode (cons "--user" args) args))
                              (with-current-buffer buffer
                                (view-mode))
