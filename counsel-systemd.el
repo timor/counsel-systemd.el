@@ -15,7 +15,7 @@
 (require 'dbus)
 
 ;;;###autoload
-(defun counsel-journalctl (&optional user-mode)
+(defun counsel-journalctl (&optional system-mode)
   "Manage systemd units"
   (interactive "P")
   (counsel-require-program "systemctl")
@@ -28,7 +28,7 @@
                            ((string-equal state "inactive")
                             (propertize name 'face 'shadow))
                            (t name))))
-                 (sort (dbus-call-method (if user-mode :session :system) "org.freedesktop.systemd1" "/org/freedesktop/systemd1" "org.freedesktop.systemd1.Manager" "ListUnits")
+                 (sort (dbus-call-method (if system-mode :system :session) "org.freedesktop.systemd1" "/org/freedesktop/systemd1" "org.freedesktop.systemd1.Manager" "ListUnits")
                        (lambda (a b)
                          (let ((failed-a (string-equal (fourth a) "failed"))
                                (failed-b (string-equal (fourth b) "failed")))
@@ -47,7 +47,7 @@
                           (if buffer
                               (pop-to-buffer buffer)
                             (let ((args `("--lines=2000" "-f" "-b" "-u" ,x)))
-                              (apply #'start-process (concat "journalctl-" x) (setq buffer (generate-new-buffer buffer-name)) "journalctl" (if user-mode (cons "--user" args) args))
+                              (apply #'start-process (concat "journalctl-" x) (setq buffer (generate-new-buffer buffer-name)) "journalctl" (if (not system-mode) (cons "--user" args) args))
                              (with-current-buffer buffer
                                (view-mode))
                              (pop-to-buffer buffer)))))
