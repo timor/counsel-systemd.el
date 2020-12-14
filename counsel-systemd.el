@@ -3,7 +3,7 @@
 ;; unlicensed
 
 ;; Author: timor <timor.dd@googlemail.com>
-;; Version: 0.1.2
+;; Version: 0.1.3
 ;; Package-Requires: (counsel dbus)
 ;; URL: http://github.com/timor/counsel-systemd.el
 ;; Keywords: convenience
@@ -46,7 +46,7 @@
                                (buffer (get-buffer buffer-name)))
                           (if buffer
                               (pop-to-buffer buffer)
-                            (let ((args `("--lines=2000" "-f" "-b" "-u" ,x)))
+                            (let ((args `("--lines=2000" "-f" "-u" ,x)))
                               (apply #'start-process (concat "journalctl-" x) (setq buffer (generate-new-buffer buffer-name)) "journalctl" (if (not system-mode) (cons "--user" args) args))
                              (with-current-buffer buffer
                                (view-mode))
